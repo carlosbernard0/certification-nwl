@@ -38,7 +38,24 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.1</version>
+		</dependency>
+	
+   <dependency>
+     <groupId>io.github.Tcm00.MavenProject</groupId>
+     <artifactId>MavenProject</artifactId>
+     <version>1.0.2</version>
+   </dependency>
+ </dependencies>
 
 	<build>
 		<plugins>
