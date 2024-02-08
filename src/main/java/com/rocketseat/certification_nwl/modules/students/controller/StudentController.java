@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rocketseat.certification_nwl.modules.students.dto.VerifyHasCertificationDTO;
+import com.rocketseat.certification_nwl.modules.students.dto.StudentCertificationAnswerDTO;
 import com.rocketseat.certification_nwl.modules.students.useCases.VerifyIfHasCertificationUseCase;
 
 
@@ -25,7 +25,7 @@ public class StudentController {
     }
 
     @PostMapping("/verifyIfHasCertification")
-    public String verifyIfHasCertification(@RequestBody VerifyHasCertificationDTO verifyHasCertificationDTO){
+    public String verifyIfHasCertification(@RequestBody StudentCertificationAnswerDTO verifyHasCertificationDTO){
 
         var result = this.verifyIfHasCertificationUseCase.execute(verifyHasCertificationDTO);
         if(result){
