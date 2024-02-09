@@ -2,13 +2,15 @@ package com.rocketseat.certification_nwl.modules.students.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rocketseat.certification_nwl.modules.students.dto.StudentCertificationAnswerDTO;
+import com.rocketseat.certification_nwl.modules.students.dto.VerifyHasCertificationDTO;
+import com.rocketseat.certification_nwl.modules.students.useCases.StudentCertificationAnswersUseCase;
 import com.rocketseat.certification_nwl.modules.students.useCases.VerifyIfHasCertificationUseCase;
 
 
@@ -16,22 +18,34 @@ import com.rocketseat.certification_nwl.modules.students.useCases.VerifyIfHasCer
 @RequestMapping("/students")
 public class StudentController {
 
+    // Preciso usar o meu USECASE
     @Autowired
     private VerifyIfHasCertificationUseCase verifyIfHasCertificationUseCase;
 
-    @GetMapping("/HelloWorld")
-    public String primeiraRequisicao(){
-        return "Hello World";
-    }
+    @Autowired
+    private StudentCertificationAnswersUseCase studentCertificationAnswersUseCase;
 
     @PostMapping("/verifyIfHasCertification")
-    public String verifyIfHasCertification(@RequestBody StudentCertificationAnswerDTO verifyHasCertificationDTO){
-
+    public String verifyIfHasCertification(@RequestBody VerifyHasCertificationDTO verifyHasCertificationDTO) {
+        // Email
+        // Technology
         var result = this.verifyIfHasCertificationUseCase.execute(verifyHasCertificationDTO);
-        if(result){
-            return "Usario ja fez a prova";
+        if (result) {
+            return "Usuário já fez a prova";
         }
-        return "Usuario pode fazer a prova ";
+
+        return "Usuário pode fazer a prova";
     }
-    
+
+    @PostMapping("/certification/answer")
+    public ResponseEntity<Object> certificationAnswer(
+            @RequestBody StudentCertificationAnswerDTO studentCertificationAnswerDTO) {
+        try {
+            var result = studentCertificationAnswersUseCase.execute(studentCertificationAnswerDTO);
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+    }
 }
